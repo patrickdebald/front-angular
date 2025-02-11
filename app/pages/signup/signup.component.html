@@ -1,0 +1,55 @@
+<app-default-login-layout 
+title="Sign in and start today!t" 
+primaryBtnText="Signup Now" 
+secundaryBtnText="Login now"
+(submit)='submit()'
+(navigate)='navigate()'
+[disablePrimaryBtn]='!signupForm.valid'>
+    <form [formGroup]="signupForm">
+        <app-primary-input
+            formControlName="name"
+            inputName="name"
+            type="text"
+            label="Your Name"
+            placeholder="John Doe"
+        >
+            <img src="/assets/svg/email-icon.svg">
+        </app-primary-input>
+        <app-primary-input
+            formControlName="email"
+            inputName="email"
+            type="email"
+            label="Email"
+            placeholder="johndoe@gmail.com"
+        >
+            <img src="/assets/svg/email-icon.svg">
+        </app-primary-input>
+        <app-primary-input
+            formControlName="password"
+            inputName="password"
+            type="password"
+            label="Your Password"
+        >
+            <img src="/assets/svg/password-icon.svg">
+        </app-primary-input>
+         <!-- Mensagens Dinâmicas de Validação da Senha -->
+         <ul>
+            <li [style.color]="passwordRequirements.minLength ? 'green' : 'red'">✔ Mínimo de 8 caracteres</li>
+            <li [style.color]="passwordRequirements.hasUpper ? 'green' : 'red'">✔ Pelo menos uma letra maiúscula</li>
+            <li [style.color]="passwordRequirements.hasLower ? 'green' : 'red'">✔ Pelo menos uma letra minúscula</li>
+            <li [style.color]="passwordRequirements.hasNumber ? 'green' : 'red'">✔ Pelo menos um número</li>
+            <li [style.color]="passwordRequirements.hasSpecial ? 'green' : 'red'">  ✔ Pelo menos um caractere especial (&#64;, $, !, %, *, ?, <b>&amp;</b>)</li>
+        </ul>
+        <app-primary-input
+            formControlName="passwordConfirm"
+            inputName="passwordConfirm"
+            type="password"
+            label="Confirm your Password"
+        >
+            <img src="/assets/svg/password-icon.svg">
+        </app-primary-input>
+        <div *ngIf="signupForm.hasError('mismatch') && signupForm.get('passwordConfirm')?.dirty">
+            <small style="color: red;">❌ As senhas não coincidem</small>
+        </div>
+    </form>
+</app-default-login-layout>
